@@ -1,0 +1,1393 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Debian LXC and Docker in Termux &middot; Simple Selfhosted Server Guides</title>
+  <meta name="title" content="Debian LXC and Docker in Termux &middot; Simple Selfhosted Server Guides" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="/posts/2025-05-08-lxc/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.75efbde0b99ff286fae6f03226990076e6f98602b18d149b71f05e113f0fc7184122892266ac783102fe78fdbd53798b33201d9f3b7e00286104f2b671d240e7.css"
+    integrity="sha512-de&#43;94Lmf8ob65vAyJpkAdub5hgKxjRSbcfBeET8PxxhBIokiZqx4MQL&#43;eP29U3mLMyAdnzt&#43;AChhBPK2cdJA5w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.45f7395bcc3f49cbdc99cbbe101ef31488eba6e0f0a4446db2a6208bd5e742214fcf5f9797f87fcb052c56e233ecfe20b27fdcacecb5402d1d6b3ee44809bfdb.js"
+    integrity="sha512-Rfc5W8w/Scvcmcu&#43;EB7zFIjrpuDwpERtsqYgi9XnQiFPz1&#43;Xl/h/ywUsVuIz7P4gsn/crOy1QC0daz7kSAm/2w==" data-copy="Copy" data-copied="Copied"></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.f592a181a15d2a5b042daa7f746c3721acf9063f8b6acd175d989129865a37d400ae0e85b640f9ad42cd98d1f8ad30931718cf8811abdcc5fcb264400d1a2b0c.js" integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj&#43;Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Debian LXC and Docker in Termux" />
+<meta property="og:description" content="Purpose # This is to configure an Android device with a custom kernel to run a full LXC environment on external storage." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/2025-05-08-lxc/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-05-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2025-05-08T00:00:00+00:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Debian LXC and Docker in Termux"/>
+<meta name="twitter:description" content="Purpose # This is to configure an Android device with a custom kernel to run a full LXC environment on external storage."/>
+
+    
+  
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Debian LXC and Docker in Termux",
+    "headline": "Debian LXC and Docker in Termux",
+    
+    "abstract": "Purpose # This is to configure an Android device with a custom kernel to run a full LXC environment on external storage.",
+    "inLanguage": "en",
+    "url" : "\/posts\/2025-05-08-lxc\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Matthew Lee"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-05-08T00:00:00\u002b00:00",
+    "datePublished": "2025-05-08T00:00:00\u002b00:00",
+    
+    "dateModified": "2025-05-08T00:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2432"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="Matthew Lee" />
+  
+  
+  
+  
+  <link href="https://github.com/thefriendlyenigma" rel="me" />
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+  
+  
+  <meta name="theme-color"/>
+  
+  
+
+  
+  
+</head>
+<body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a
+      >
+    </div>
+    
+    
+      <div class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 padding-main-menu">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Simple Selfhosted Server Guides</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a
+  href="/posts/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    Blog
+  </p>
+</a>
+
+
+
+            
+            
+  <a
+  href="/about/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    About Me
+  </p>
+</a>
+
+
+
+            
+            
+  <a
+  href="/credits/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    Website Credits
+  </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 padding-top-[5px]">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="/posts/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      Blog
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="/about/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      About Me
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="/credits/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      Website Credits
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+
+
+  <article>
+    
+
+
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Debian LXC and Docker in Termux
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-05-08T00:00:00&#43;00:00">8 May 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2432 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+
+  
+  
+
+
+
+      </div>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+        
+          
+          
+<div class="flex author">
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        Matthew Lee
+      </div>
+    
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/thefriendlyenigma"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+        
+
+        
+
+        
+          <div class="mb-5"></div>
+        
+
+      
+
+    </header>
+
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+          <div
+            class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky 
+              lg:top-10
+            
+            ">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#purpose">Purpose</a></li>
+    <li><a href="#skills-demonstrated">Skills Demonstrated</a></li>
+    <li><a href="#important-note-before-we-begin">IMPORTANT NOTE BEFORE WE BEGIN!</a></li>
+    <li><a href="#prerequisites">Prerequisites</a>
+      <ul>
+        <li><a href="#lxc-on-internal-storage--do-not-need-to-perform-this-step-if-using-sd-card">LXC on Internal Storage (do NOT need to perform this step if using SD card)</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-1-mounting-cgroups-as-v1">Step 1: Mounting Cgroups as v1</a></li>
+    <li><a href="#step-2-editing-lxc-configuration-files">Step 2: Editing LXC Configuration Files</a>
+      <ul>
+        <li><a href="#common-dot-conf">common.conf</a></li>
+        <li><a href="#default-dot-conf">default.conf</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-3-creating-lxc">Step 3: Creating LXC</a></li>
+    <li><a href="#step-4-enabling-password-login">Step 4: Enabling Password Login</a></li>
+    <li><a href="#step-5-enabling-networking-creating-standard-user">Step 5: Enabling Networking, Creating Standard User</a></li>
+    <li><a href="#step-6-enabling-ssh-access">Step 6: Enabling SSH Access</a>
+      <ul>
+        <li><a href="#external-storage-autostart">External Storage Autostart</a></li>
+        <li><a href="#internal-storage">Internal Storage</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-7-installing-and-configuring-docker">Step 7: Installing and Configuring Docker</a>
+      <ul>
+        <li><a href="#dockerd-autostart">Dockerd Autostart</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-8--optional--general-linux-qol-features">Step 8 (OPTIONAL): General Linux QOL Features</a></li>
+    <li><a href="#note-regarding-shutdown-and-reboot-commands">Note regarding shutdown and reboot commands</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#purpose">Purpose</a></li>
+    <li><a href="#skills-demonstrated">Skills Demonstrated</a></li>
+    <li><a href="#important-note-before-we-begin">IMPORTANT NOTE BEFORE WE BEGIN!</a></li>
+    <li><a href="#prerequisites">Prerequisites</a>
+      <ul>
+        <li><a href="#lxc-on-internal-storage--do-not-need-to-perform-this-step-if-using-sd-card">LXC on Internal Storage (do NOT need to perform this step if using SD card)</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-1-mounting-cgroups-as-v1">Step 1: Mounting Cgroups as v1</a></li>
+    <li><a href="#step-2-editing-lxc-configuration-files">Step 2: Editing LXC Configuration Files</a>
+      <ul>
+        <li><a href="#common-dot-conf">common.conf</a></li>
+        <li><a href="#default-dot-conf">default.conf</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-3-creating-lxc">Step 3: Creating LXC</a></li>
+    <li><a href="#step-4-enabling-password-login">Step 4: Enabling Password Login</a></li>
+    <li><a href="#step-5-enabling-networking-creating-standard-user">Step 5: Enabling Networking, Creating Standard User</a></li>
+    <li><a href="#step-6-enabling-ssh-access">Step 6: Enabling SSH Access</a>
+      <ul>
+        <li><a href="#external-storage-autostart">External Storage Autostart</a></li>
+        <li><a href="#internal-storage">Internal Storage</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-7-installing-and-configuring-docker">Step 7: Installing and Configuring Docker</a>
+      <ul>
+        <li><a href="#dockerd-autostart">Dockerd Autostart</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-8--optional--general-linux-qol-features">Step 8 (OPTIONAL): General Linux QOL Features</a></li>
+    <li><a href="#note-regarding-shutdown-and-reboot-commands">Note regarding shutdown and reboot commands</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = false
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+            
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+<h2 class="relative group">Purpose 
+    <div id="purpose" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#purpose" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>This is to configure an Android device with a custom kernel to run a full LXC environment on external storage.
+Unlike the chroot or proot configurations, this allows use of Docker to run containers, alongside systemd to manage services.
+Therefore, this allows an Android device to run as close to a &ldquo;full&rdquo; Linux environment as possible (without virtualisation).</p>
+
+<h2 class="relative group">Skills Demonstrated 
+    <div id="skills-demonstrated" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#skills-demonstrated" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>Linux / Bash Command Line Administration</li>
+<li>SSH Hardening</li>
+<li>Android Kernel Configuration</li>
+<li>Container Networking Configuration</li>
+<li>Troubleshooting, Decision-Making With Limited Information Available</li>
+</ul>
+
+<h2 class="relative group">IMPORTANT NOTE BEFORE WE BEGIN! 
+    <div id="important-note-before-we-begin" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#important-note-before-we-begin" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>In order for Docker to work inside the LXC, I configured a custom kernel that mounts the <code>cpuset</code> groups of <code>mems</code> and <code>cpus</code> with the  <code>cpuset</code> prefix (<code>cpuset.mems</code> and <code>cupset.cpus</code> respectively), as standard Linux installations are meant to.</p>
+<p>The default Termux LXC package has been customised to look for <code>mems</code> and <code>cpus</code> WITHOUT the <code>cpuset</code> prefix (and therefore will not run if they are mounted WITH the prefix), but the standard Docker installation (which is installed inside the LXC) looks for <code>mems</code> and <code>cpus</code> WITH the prefix, and will not run if they are mounted WITHOUT the prefix.
+Therefore, I made a custom version of the Termux LXC package, changing the source code to remove that customisation, and then rebuilding the package accordingly.</p>
+<p>The system does note that <code>systemd</code> is designed for kernels 4.15 or above, but the device I tested on, the Exynos variant of the Samsung s10e, is currently on kernel version 4.14, so it warns to expect unpredictable behaviour. As of writing, it works fine for my purposes.</p>
+
+<h2 class="relative group">Prerequisites 
+    <div id="prerequisites" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#prerequisites" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>A custom Kernel installed with all flags for Docker enabled (tested on Samsung s10e (Exynos) with <a
+  href="https://github.com/thefriendlyenigma/s10e-chroot-docker-kernel"
+    target="_blank"
+  >customised CruelKernel</a>
+ installed over the latest supported stock OS, which in this case is Android 12), AND <a
+  href="https://github.com/thefriendlyenigma/s10e-chroot-docker-kernel/commit/0954a5be78edec9a2d7b088f9847e297a8d6c52b"
+    target="_blank"
+  >the <code>noprefix</code> option REMOVED from mounting the <code>mems</code> and <code>cpus</code> cgroups.</a>
+</li>
+<li>A rooted device (tested with Magisk v27.0)
+<ul>
+<li>Termux installed and granted root access</li>
+<li><code>root-repo</code> and <code>tsu</code> installed inside Termux (to allow the use of the <code>sudo</code> command)</li>
+<li>A custom <code>lxc</code> package installed, configured to search for the <code>cpuset.mems</code> and <code>cpuset.cpus</code> cgroups - you can either use <a
+  href="https://github.com/thefriendlyenigma/termux-packages/releases/download/v1.0/lxc_1_3.1.0-2_aarch64.deb"
+    target="_blank"
+  >my provided build</a>
+, or <a
+  href="https://github.com/thefriendlyenigma/termux-packages/commit/11016e27076e1296f4ca93b57ce573e4e51ea38b"
+    target="_blank"
+  >make the changes</a>
+ and build it yourself on your own machine.</li>
+</ul>
+</li>
+<li>An external micro SD card formatted as <code>ext4</code></li>
+</ul>
+
+<h3 class="relative group">LXC on Internal Storage (do NOT need to perform this step if using SD card) 
+    <div id="lxc-on-internal-storage--do-not-need-to-perform-this-step-if-using-sd-card" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#lxc-on-internal-storage--do-not-need-to-perform-this-step-if-using-sd-card" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>These steps are also applicable using the device&rsquo;s internal storage if there is no SD card available, but file-based encryption on the device can pose a challenge to the proper functioning of the LXC environment. In my experience, using a folder within <code>/data</code> as the lxc storage works (for example, creating the folder <code>/data/lxc</code>), but <code>/data</code> needs to first be remounted with the <code>nosuid</code> option in the Termux shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo mount -o remount,suid /data
+</span></span></code></pre></div>
+<h2 class="relative group">Step 1: Mounting Cgroups as v1 
+    <div id="step-1-mounting-cgroups-as-v1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#step-1-mounting-cgroups-as-v1" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>Save <a
+  href="https://github.com/thefriendlyenigma/android-lxc-scripts/raw/refs/heads/main/cgroups.sh"
+    target="_blank"
+  >this script</a>
+ to an easily-accessible location (in my case, I saved it to the Termux home directory) and then run it as root. This mounts cgroups, which is what allows the isolation of processes in LXC.</p>
+<p><a
+  href="https://old.reddit.com/r/termux/comments/1jjfvjr/i_get_this_error_when_trying_to_run_lxc_on_termux/mjn4sn6/"
+    target="_blank"
+  >(Source of script)</a>
+</p>
+<p>Important: it&rsquo;s important to confirm that <code>/proc/self/mountinfo</code> does NOT mention &ldquo;cgroup2&rdquo;. From my understanding, &ldquo;cgroup2&rdquo; being present means that the cgroups are mounted as v2, but the current Termux LXC is configured to only use v1 cgroups. Cgroups being mounted as v2 confuses the program and renders it unable to start.</p>
+
+<h2 class="relative group">Step 2: Editing LXC Configuration Files 
+    <div id="step-2-editing-lxc-configuration-files" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#step-2-editing-lxc-configuration-files" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>By default, these should be at:</p>
+<ul>
+<li><code>/data/data/com.termux/files/usr/share/lxc/config/common.conf</code></li>
+<li><code>/data/data/com.termux/files/usr/etc/lxc/default.conf</code></li>
+</ul>
+
+<h3 class="relative group">common.conf 
+    <div id="common-dot-conf" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#common-dot-conf" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Comment out the entire part that shows lxc.devices.allow/deny, then add above it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">lxc.cgroup.devices.allow=
+</span></span><span class="line"><span class="cl">lxc.cgroup.devices.deny=
+</span></span></code></pre></div><p>The default lxc config restricts the devices used by LXC, but on Android with its different device style to standard Linux machines, it unfortunately prevents LXC from booting entirely.
+These configurations set both allow and deny lists to clear, making it so that LXC can boot on its own.</p>
+<p>Add to the bottom:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">lxc.init.cmd = /sbin/init systemd.unified_cgroup_hierarchy=0
+</span></span></code></pre></div><p>This configuration reminds the container that it needs to use the v1 version of cgroups.</p>
+<p><a
+  href="https://raw.githubusercontent.com/thefriendlyenigma/android-lxc-scripts/refs/heads/main/common.conf"
+    target="_blank"
+  >An example common.conf file is located here.</a>
+</p>
+
+<h3 class="relative group">default.conf 
+    <div id="default-dot-conf" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#default-dot-conf" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>By default, this file&rsquo;s contents are:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="na">lxc.net.0.type</span> <span class="o">=</span> <span class="s">empty</span>
+</span></span></code></pre></div><p><code>empty</code> should be changed to to <code>none</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="na">lxc.net.0.type</span> <span class="o">=</span> <span class="s">none</span>
+</span></span></code></pre></div><ul>
+<li><code>empty</code> means that by default, the Linux environments created won&rsquo;t have network access.</li>
+<li>Changing the setting to <code>none</code> gives the Linux environments access to the network configuration of the host Android device.
+<ul>
+<li>However, note that <strong>additional configuration</strong> still needs to be carried out on each Linux environment that is created, for the Android system to allow them network access.</li>
+</ul>
+</li>
+</ul>
+
+<h2 class="relative group">Step 3: Creating LXC 
+    <div id="step-3-creating-lxc" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#step-3-creating-lxc" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>The LXC <strong>must</strong> be created in an unencrypted location.</p>
+<p>Example with Debian Bookworm LXC being installed to an sd card mounted at <code>/data/local/debian</code> and installing to <code>/data/local/debian/lxc</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Creating folder to store the LXC root</span>
+</span></span><span class="line"><span class="cl">sudo mkdir /data/local/debian/lxc
+</span></span><span class="line"><span class="cl"><span class="c1"># Installing the LXC environment to that folder</span>
+</span></span><span class="line"><span class="cl">sudo lxc-create --dir<span class="o">=</span>/data/local/debian/lxc -t download -n debian -- --no-validate -d debian -r bookworm -a arm64
+</span></span></code></pre></div><p>If you are using internal storage, you need to create your folder (or folders) directly inside <code>/data</code>, NOT inside <code>/data/local</code>, because <code>/data/local</code> is an encrypted location.
+In my case, because uninstalling an LXC environment deletes its entire folder, I&rsquo;ve decided to create a parent folder for the LXC as a &ldquo;marker&rdquo;, or reminder of where to make more.
+It isn&rsquo;t necessary to follow this exactly - to my knowledge, you could directly create a folder called <code>/data/debian</code> and install the LXC there if you like.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Creating a folder AND a subfolder:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /data/lxc is like a &#39;buffer&#39; - &#39;marking&#39; a dedicated place to create LXC environments,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># that won&#39;t be deleted if this Debian LXC is uninstalled in the future</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /data/lxc/debian is going to be where the LXC environment will actually be installed</span>
+</span></span><span class="line"><span class="cl">sudo mkdir -p /data/lxc/debian
+</span></span><span class="line"><span class="cl"><span class="c1"># Installing the LXC environment</span>
+</span></span><span class="line"><span class="cl">sudo lxc-create --dir<span class="o">=</span>/data/lxc/debian -t download -n debian -- --no-validate -d debian -r bookworm -a arm64
+</span></span></code></pre></div><p><code>--no-validate</code> must be included in the command because Termux LXC package cannot use a keychain.</p>
+<p><strong>IMPORTANT!!</strong></p>
+<ol>
+<li>The directory you install to needs to exist FIRST.</li>
+<li>If you are using externally mounted storage, the LXC directory should NOT be the root of the mounted storage. For example, if it is mounted at <code>/data/local/debian</code>, the LXC should be installed to a SUBFOLDER. This is because if you need to uninstall the lxc later, deleting it through <code>lxc-destroy</code> will try to delete the directory of the mounted device itself and fail.</li>
+</ol>
+
+<h2 class="relative group">Step 4: Enabling Password Login 
+    <div id="step-4-enabling-password-login" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#step-4-enabling-password-login" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>By default, the LXC will not allow you to login, and due to a quirk of Android, the <code>lxc-attach</code> command that is usually used to get around it will not work.
+Therefore, you need to edit the password file of the LXC in Termux, <strong>before</strong> you actually boot the LXC.</p>
+<p>In the case of the example where the LXC is installed to <code>/data/local/debian/lxc</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo vim /data/local/debian/lxc/etc/shadow
+</span></span></code></pre></div><p>By default, the line of the root user will look like below, with the <code>*</code> meaning that password login is not possible:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">root:*:20215:0:99999:7:::
+</span></span></code></pre></div><p>Replace the  <code>*</code> with <code>paa5KD6arxLr2</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">root:paa5KD6arxLr2:20215:0:99999:7:::
+</span></span></code></pre></div><p>This will change the password to <code>123456</code>.</p>
+<p>Source: machine-translated version of <a
+  href="https://www.cnblogs.com/ifwz/p/17592111.html"
+    target="_blank"
+  >https://www.cnblogs.com/ifwz/p/17592111.html</a>
+</p>
+<p>It will then be possible to login through providing the username <code>root</code> and the password <code>123456</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo lxc-start -F debian
+</span></span></code></pre></div><p>For security purposes, you MUST change the root user password immediately afterwards to a more secure password of your choosing through the <code>passwd</code> command.</p>
+
+<h2 class="relative group">Step 5: Enabling Networking, Creating Standard User 
+    <div id="step-5-enabling-networking-creating-standard-user" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#step-5-enabling-networking-creating-standard-user" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p><a
+  href="https://unix.stackexchange.com/questions/321491/android-chroot-networking-issues"
+    target="_blank"
+  >Source for networking changes</a>
+</p>
+<p>As with Chroot Linux installations on Android, the Android host by default will not allow any network access unless the user is part of the group with the ID <code>3003</code>.
+Both the root and _apt user need these permissions added to them - root to allow network access when executing root commands, and _apt to allow package management.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># creating a group called &#34;aid_inet&#34; with group ID 3003</span>
+</span></span><span class="line"><span class="cl">groupadd -g <span class="m">3003</span> aid_inet
+</span></span><span class="line"><span class="cl"><span class="c1"># changing the _apt user&#39;s primary group to 3003</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># has to be the PRIMARY group, otherwise the default &#34;nogroup&#34; will override</span>
+</span></span><span class="line"><span class="cl">usermod -g <span class="m">3003</span> _apt
+</span></span><span class="line"><span class="cl"><span class="c1"># Need to add to the root user as well</span>
+</span></span><span class="line"><span class="cl">usermod -aG <span class="m">3003</span> root
+</span></span><span class="line"><span class="cl"><span class="c1"># log out and in for group to apply</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span></code></pre></div><p>As per Linux best practices of ONLY using root when absolutely necessary (and using sudo for regular situations), a regular user should now be created.</p>
+<p>In this example, creating a user called <code>user</code>, having the <code>aid_inet</code> group as the user&rsquo;s primary group so they have network access by default:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Creating a user called &#34;user&#34;, creating their home dir</span>
+</span></span><span class="line"><span class="cl">useradd user -s /bin/bash -m
+</span></span><span class="line"><span class="cl"><span class="c1"># Changing &#34;user&#34;&#39;s primary group to 3003</span>
+</span></span><span class="line"><span class="cl">usermod -g <span class="m">3003</span> user
+</span></span><span class="line"><span class="cl"><span class="c1"># Switching to &#34;user&#34;</span>
+</span></span><span class="line"><span class="cl">su user
+</span></span><span class="line"><span class="cl"><span class="c1"># Testing ping - should be successful</span>
+</span></span><span class="line"><span class="cl">ping 1.1.1.1
+</span></span></code></pre></div><p>The user must also be added to the sudoers file via <code>visudo</code>, to allow them to use <code>sudo</code> and perform administrative commands.</p>
+<p>In my case, because I intend to exclusively use SSH key authentication (which I will cover in my next step), I&rsquo;m adding in <code>NOPASSWD</code> to both root and user, meaning that the user will not need to enter in a password for sudo use.</p>
+<p>I have changed the lines under <code>#User privilege specification</code> from:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># User privilege specification
+</span></span><span class="line"><span class="cl">root    ALL=(ALL:ALL) ALL
+</span></span></code></pre></div><p>to:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># User privilege specification
+</span></span><span class="line"><span class="cl">root    ALL=(ALL:ALL) NOPASSWD: ALL
+</span></span><span class="line"><span class="cl">user    ALL=(ALL:ALL) NOPASSWD: ALL
+</span></span></code></pre></div><p>Another aspect similar to chroot installations, is the system needing a DNS address assigned manually. This can be done through editing <code>/etc/systemd/resolved.conf</code> through a terminal text editor (such as <code>vim</code> or <code>nano</code>) with <code>sudo</code> permissions.</p>
+<p>The line <code>DNS=</code> should be uncommented, and then filled in with a DNS address of your choice. <code>1.1.1.1</code> (CloudFlare) or <code>9.9.9.9</code> (Quad9) tend to be solid options.</p>
+<p><a
+  href="https://raw.githubusercontent.com/thefriendlyenigma/android-lxc-scripts/refs/heads/main/resolved.conf"
+    target="_blank"
+  >Here is an example of the resolved.conf file after adding DNS 1.1.1.1.</a>
+</p>
+<p>Restart the DNS service, then test the ping command using a hostname. The ping should be successful.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo systemctl restart systemd-resolved
+</span></span><span class="line"><span class="cl">ping www.google.com
+</span></span></code></pre></div>
+<h2 class="relative group">Step 6: Enabling SSH Access 
+    <div id="step-6-enabling-ssh-access" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#step-6-enabling-ssh-access" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>Inside LXC, install <code>openssh-server</code>.
+This should automatically configure the SSH service to start when the LXC boots.
+Therefore, running <code>sudo lxc-start debian</code> would allow access from SSH directly rather than needing to run <code>sudo lxc-start -F debian</code> from Termux shell.
+Because LXC broadcasts on usual SSH port rather than port 8022 like Termux does, it&rsquo;s possible to access both the LXC and the actual Android Termux shell via SSH through the same IP address.</p>
+<p>NOTE: I HIGHLY recommend first setting up SSH public key access, disabling password access, through changing the line <code>PasswordAuthentication yes</code> to <code>PasswordAuthentication no</code> in <code>/etc/ssh/sshd_config</code> and then running <code>sudo systemctl restart ssh.service</code>.</p>
+<p>In order to auto-start the LXC and SSH access to it on boot, there are two scripts I have made, depending on whether you use internal or external storage.</p>
+<p><strong>Both presume that the name of the LXC is <code>debian</code>, so please edit the examples accordingly if you have configured your setup differently.</strong></p>
+
+<h3 class="relative group">External Storage Autostart 
+    <div id="external-storage-autostart" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#external-storage-autostart" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Save <a
+  href="https://raw.githubusercontent.com/thefriendlyenigma/android-lxc-scripts/refs/heads/main/lxc-startup-external.sh"
+    target="_blank"
+  >this script</a>
+ to <code>~/.termux/boot</code> and have it executable.
+On boot, this will auto-mount the external storage, mount the required cgroups, and then start the LXC.</p>
+<p>In addition to the name of the LXC, this also presumes:</p>
+<ul>
+<li>the SD card block device is <code>/dev/block/mmcblk0</code></li>
+<li>the SD card is mounted to <code>/data/local/debian</code></li>
+</ul>
+
+<h3 class="relative group">Internal Storage 
+    <div id="internal-storage" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#internal-storage" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Save <a
+  href="https://raw.githubusercontent.com/thefriendlyenigma/android-lxc-scripts/refs/heads/main/lxc-startup-internal.sh"
+    target="_blank"
+  >this script</a>
+ to <code>~/.termux/boot</code> and have it executable.</p>
+<p>On boot, this will remount the <code>/data</code> folder with the <code>suid</code> option (allowing use of <code>sudo</code> for standard users), mount the required cgroups, and then start the LXC.</p>
+
+<h2 class="relative group">Step 7: Installing and Configuring Docker 
+    <div id="step-7-installing-and-configuring-docker" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#step-7-installing-and-configuring-docker" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>Due to Android&rsquo;s networking restrictions, additional configuration needs to be carried out with how Docker is utilised.
+Specifically:</p>
+<ol>
+<li>the Docker daemon needs to be manually started,</li>
+<li>Android does not support <code>iptables</code>,</li>
+<li>all containers must be run on the <strong>host</strong> network.</li>
+</ol>
+<!--listend-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Installing Tmux to allow background terminal sessions (dockerd needs to be started manually, then run in the background)</span>
+</span></span><span class="line"><span class="cl">sudo apt install tmux
+</span></span><span class="line"><span class="cl"><span class="c1"># Installing docker and docker-compose (so can run compose template files)</span>
+</span></span><span class="line"><span class="cl">sudo apt install docker.io docker-compose
+</span></span></code></pre></div><p>Create file <code>/etc/docker/daemon.json</code>, and set the option <code>iptables</code> to false - this is another quirk of Android, where Docker doesn&rsquo;t work on Android if the iptables option is set to true.</p>
+<p>Contents of <code>/etc/docker/daemon.json</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;iptables&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Create new tmux session by running <code>tmux</code>, then run <code>sudo dockerd</code>. Once <code>dockerd</code> has started, detach from the session by pressing <code>Ctrl+B D</code>.</p>
+<p>Run <code>sudo docker run hello-world</code> , the program should properly run.</p>
+<p><strong>Note: These following examples with Jellyfin and Calibre-Web-Automated are just examples to test that the services work, not services that can permanently run. They do not have any permanent storage passed through. For actual permanent containers, I recommend utilising docker-compose.yml files.</strong></p>
+<p>As stated above, you need to run containers with <strong>host network mode</strong>, i.e.,</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo docker run --network<span class="o">=</span>host jellyfin/jellyfin
+</span></span></code></pre></div><p>Otherwise, you will NOT be able to access the services on the network!!
+Also, once more, due to Android&rsquo;s networking restrictions, if a container does not run with the current user&rsquo;s PGID (Process Group ID) by default, such as <code>calibre-web-automated</code>, you <em>must</em> change the GID to 3003, otherwise the container will not have permission to even <em>start</em> a server.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run -e <span class="nv">PGID</span><span class="o">=</span><span class="m">3003</span> --network<span class="o">=</span>host crocodilestick/calibre-web-automated:latest
+</span></span></code></pre></div><p>As per usual Docker practices, add your user to the <code>docker</code> group if you would like to run the docker client without needing <code>sudo</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo usermod -aG docker user
+</span></span></code></pre></div><p>Then log out and in for it to take effect.</p>
+<p><strong>Please note that you do still need to run <code>dockerd</code> as sudo.</strong></p>
+
+<h3 class="relative group">Dockerd Autostart 
+    <div id="dockerd-autostart" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#dockerd-autostart" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>I have found that <code>dockerd</code> autostarting or not can be inconsistent. Sometimes it starts up on its own, sometimes it does not start up on its own (the reason for the latter being that the systemd service somehow does not detect the <code>iptables=false</code> flag. Therefore, if you find that <code>dockerd</code> does not run on restarting your device or the LXC container, run <code>sudo dockerd</code> in a tmux session and then detach from it with <code>Ctrl+B D</code>.</p>
+
+<h2 class="relative group">Step 8 (OPTIONAL): General Linux QOL Features 
+    <div id="step-8--optional--general-linux-qol-features" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#step-8--optional--general-linux-qol-features" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>These are not necessary for LXC to function, but they are nice to have.
+Install <code>command-not-found</code> so have better information if a command doesn&rsquo;t work</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install command-not-found
+</span></span><span class="line"><span class="cl">sudo apt-file update
+</span></span></code></pre></div><p>Need to log out and in to take effect.</p>
+<p>Install <code>apt-utils</code> so that packages can be installed more efficiently (configuration can occur BEFORE installation rather than after)
+<a
+  href="https://unix.stackexchange.com/questions/629112/what-does-delaying-package-configuration-since-apt-utils-is-not-installed-tru"
+    target="_blank"
+  >(Source)</a>
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install apt-utils
+</span></span></code></pre></div>
+<h2 class="relative group">Note regarding shutdown and reboot commands 
+    <div id="note-regarding-shutdown-and-reboot-commands" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#note-regarding-shutdown-and-reboot-commands" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>Unlike a chroot environment, where power-related commands simply fail, running <code>sudo shutdown now</code> or <code>sudo reboot now</code>  inside the LXC will work. However, they don&rsquo;t actually power off or reboot the host device, it&rsquo;s more akin to restarting a Virtual Machine.</p>
+
+          
+          
+          
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.407e5b2727c1f241c95d53db24c776bea71bfc18e09511b815d669ad8caca6e9e18a53864ad364b1ccccfa2f2956768d33cfe193bfb64d3406f3b5ece354ba57.js"
+          integrity="sha512-QH5bJyfB8kHJXVPbJMd2vqcb/BjglRG4FdZprYyspunhilOGStNksczM&#43;i8pVnaNM8/hk7&#43;2TTQG87Xs41S6Vw=="
+          data-oid="views_posts/2025-05-08-lxc.md"
+          data-oid-likes="likes_posts/2025-05-08-lxc.md"></script>
+      
+
+    </section>
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/posts/2025-04-23-kobo-wireguard/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Connecting Kobo to Wireguard VPN</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-04-23T00:00:00&#43;00:00">23 April 2025</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a
+    href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2025
+          Matthew Lee
+      </p>
+    
+
+    
+    
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+      </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script> 
+  
+  <script
+    type="text/javascript"
+    src="/js/process.min.62060bb247f4de2b6dde45903668fefb68d792f365587605177b1227c0cf43588701edaca0cb40e2c8e2789bd5ce67c1d2a215b9fb258c3496a7cd25e7cb5fdf.js"
+    integrity="sha512-YgYLskf03itt3kWQNmj&#43;&#43;2jXkvNlWHYFF3sSJ8DPQ1iHAe2soMtA4sjieJvVzmfB0qIVufsljDSWp80l58tf3w=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-index-500"
+  data-url="/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

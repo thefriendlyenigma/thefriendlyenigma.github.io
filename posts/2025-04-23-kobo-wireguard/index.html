@@ -1,0 +1,1486 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Connecting Kobo to Wireguard VPN &middot; Simple Selfhosted Server Guides</title>
+  <meta name="title" content="Connecting Kobo to Wireguard VPN &middot; Simple Selfhosted Server Guides" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="/posts/2025-04-23-kobo-wireguard/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.75efbde0b99ff286fae6f03226990076e6f98602b18d149b71f05e113f0fc7184122892266ac783102fe78fdbd53798b33201d9f3b7e00286104f2b671d240e7.css"
+    integrity="sha512-de&#43;94Lmf8ob65vAyJpkAdub5hgKxjRSbcfBeET8PxxhBIokiZqx4MQL&#43;eP29U3mLMyAdnzt&#43;AChhBPK2cdJA5w==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.45f7395bcc3f49cbdc99cbbe101ef31488eba6e0f0a4446db2a6208bd5e742214fcf5f9797f87fcb052c56e233ecfe20b27fdcacecb5402d1d6b3ee44809bfdb.js"
+    integrity="sha512-Rfc5W8w/Scvcmcu&#43;EB7zFIjrpuDwpERtsqYgi9XnQiFPz1&#43;Xl/h/ywUsVuIz7P4gsn/crOy1QC0daz7kSAm/2w==" data-copy="Copy" data-copied="Copied"></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.f592a181a15d2a5b042daa7f746c3721acf9063f8b6acd175d989129865a37d400ae0e85b640f9ad42cd98d1f8ad30931718cf8811abdcc5fcb264400d1a2b0c.js" integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj&#43;Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Connecting Kobo to Wireguard VPN" />
+<meta property="og:description" content="Summary # This is a guide to set up userspace Wireguard on the Kobo Clara Colour eReader, allowing you to connect the Kobo to a VPN that uses Wireguard configuration files." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/2025-04-23-kobo-wireguard/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-04-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2025-04-23T00:00:00+00:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Connecting Kobo to Wireguard VPN"/>
+<meta name="twitter:description" content="Summary # This is a guide to set up userspace Wireguard on the Kobo Clara Colour eReader, allowing you to connect the Kobo to a VPN that uses Wireguard configuration files."/>
+
+    
+  
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Connecting Kobo to Wireguard VPN",
+    "headline": "Connecting Kobo to Wireguard VPN",
+    
+    "abstract": "Summary # This is a guide to set up userspace Wireguard on the Kobo Clara Colour eReader, allowing you to connect the Kobo to a VPN that uses Wireguard configuration files.",
+    "inLanguage": "en",
+    "url" : "\/posts\/2025-04-23-kobo-wireguard\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Matthew Lee"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-04-23T00:00:00\u002b00:00",
+    "datePublished": "2025-04-23T00:00:00\u002b00:00",
+    
+    "dateModified": "2025-04-23T00:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2096"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="Matthew Lee" />
+  
+  
+  
+  
+  <link href="https://github.com/thefriendlyenigma" rel="me" />
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+  
+  
+  <meta name="theme-color"/>
+  
+  
+
+  
+  
+</head>
+<body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a
+      >
+    </div>
+    
+    
+      <div class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 padding-main-menu">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Simple Selfhosted Server Guides</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a
+  href="/posts/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    Blog
+  </p>
+</a>
+
+
+
+            
+            
+  <a
+  href="/about/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    About Me
+  </p>
+</a>
+
+
+
+            
+            
+  <a
+  href="/credits/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    Website Credits
+  </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 padding-top-[5px]">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="/posts/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      Blog
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="/about/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      About Me
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="/credits/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      Website Credits
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+
+
+  <article>
+    
+
+
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Connecting Kobo to Wireguard VPN
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-04-23T00:00:00&#43;00:00">23 April 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2096 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+
+  
+  
+
+
+
+      </div>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+        
+          
+          
+<div class="flex author">
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        Matthew Lee
+      </div>
+    
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/thefriendlyenigma"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+        
+
+        
+
+        
+          <div class="mb-5"></div>
+        
+
+      
+
+    </header>
+
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+          <div
+            class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky 
+              lg:top-10
+            
+            ">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#skills-demonstrated">Skills Demonstrated</a></li>
+    <li><a href="#important-information">IMPORTANT INFORMATION</a>
+      <ul>
+        <li><a href="#persistence-across-firmware-updates">Persistence Across Firmware Updates</a></li>
+        <li><a href="#vpn-has-to-be-activated-on-each-reboot">VPN Has To Be Activated On Each Reboot</a></li>
+      </ul>
+    </li>
+    <li><a href="#installing-koreader">Installing KOReader</a></li>
+    <li><a href="#setting-up-ssh-access">Setting up SSH access</a></li>
+    <li><a href="#compiling-retrieving-wireguard-binaries">Compiling/Retrieving Wireguard Binaries</a>
+      <ul>
+        <li><a href="#userspace-wireguard">Userspace Wireguard</a></li>
+        <li><a href="#obtaining-the-wireguard-go-binary">Obtaining the <code>wireguard-go</code> binary</a></li>
+        <li><a href="#cross-compiling-wireguard-tools">Cross-compiling <code>wireguard-tools</code></a></li>
+        <li><a href="#transferring-binaries-to-the-kobo">Transferring Binaries to the Kobo</a></li>
+      </ul>
+    </li>
+    <li><a href="#editing-wireguard-conf-file">Editing Wireguard Conf File</a></li>
+    <li><a href="#final-steps-on-kobo">Final Steps on Kobo</a>
+      <ul>
+        <li><a href="#configuring-koreader-to-properly-load-the-path">Configuring KOReader to properly load the PATH</a></li>
+        <li><a href="#configuring-vpn-dns">Configuring VPN DNS</a></li>
+        <li><a href="#creating-vpn-launching-script">Creating VPN-launching Script</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#skills-demonstrated">Skills Demonstrated</a></li>
+    <li><a href="#important-information">IMPORTANT INFORMATION</a>
+      <ul>
+        <li><a href="#persistence-across-firmware-updates">Persistence Across Firmware Updates</a></li>
+        <li><a href="#vpn-has-to-be-activated-on-each-reboot">VPN Has To Be Activated On Each Reboot</a></li>
+      </ul>
+    </li>
+    <li><a href="#installing-koreader">Installing KOReader</a></li>
+    <li><a href="#setting-up-ssh-access">Setting up SSH access</a></li>
+    <li><a href="#compiling-retrieving-wireguard-binaries">Compiling/Retrieving Wireguard Binaries</a>
+      <ul>
+        <li><a href="#userspace-wireguard">Userspace Wireguard</a></li>
+        <li><a href="#obtaining-the-wireguard-go-binary">Obtaining the <code>wireguard-go</code> binary</a></li>
+        <li><a href="#cross-compiling-wireguard-tools">Cross-compiling <code>wireguard-tools</code></a></li>
+        <li><a href="#transferring-binaries-to-the-kobo">Transferring Binaries to the Kobo</a></li>
+      </ul>
+    </li>
+    <li><a href="#editing-wireguard-conf-file">Editing Wireguard Conf File</a></li>
+    <li><a href="#final-steps-on-kobo">Final Steps on Kobo</a>
+      <ul>
+        <li><a href="#configuring-koreader-to-properly-load-the-path">Configuring KOReader to properly load the PATH</a></li>
+        <li><a href="#configuring-vpn-dns">Configuring VPN DNS</a></li>
+        <li><a href="#creating-vpn-launching-script">Creating VPN-launching Script</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = false
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+            
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+<h2 class="relative group">Summary 
+    <div id="summary" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#summary" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>This is a guide to set up userspace Wireguard on the Kobo Clara Colour eReader, allowing you to connect the Kobo to a VPN that uses Wireguard configuration files.
+The use-case for this, is using a VPN that to connects to a <strong>personal</strong> network, allowing the user to access eBook servers hosted on their personal devices.</p>
+
+<h2 class="relative group">Skills Demonstrated 
+    <div id="skills-demonstrated" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#skills-demonstrated" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>Working with embedded Linux terminals</li>
+<li>Cross-compiling</li>
+<li>Networking/VPN configuration</li>
+<li>SSH hardening</li>
+</ul>
+
+<h2 class="relative group">IMPORTANT INFORMATION 
+    <div id="important-information" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#important-information" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+<h3 class="relative group">Persistence Across Firmware Updates 
+    <div id="persistence-across-firmware-updates" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#persistence-across-firmware-updates" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>With my current experience involving Kobo firmware updates: after an update, the installed files and configurations remain, but in order to <em>access</em> the terminal that can start the VPN again, you need connect the Kobo to a computer through USB and run the script to install KFMon. This can be retrieved from <a
+  href="https://www.mobileread.com/forums/showthread.php?t=314220"
+    target="_blank"
+  >the same page as the KOReader install package below</a>
+.</p>
+
+<h3 class="relative group">VPN Has To Be Activated On Each Reboot 
+    <div id="vpn-has-to-be-activated-on-each-reboot" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#vpn-has-to-be-activated-on-each-reboot" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>It is <em>technically</em> possible to automatically run a script that starts the VPN on each device reboot.</p>
+<p>However, there is the risk of losing network access while configuring the scripts, or if the Wireguard server were to malfunction while tunnelling all traffic through it.</p>
+<p>The only way to restore network access in that situation would be through the on-device terminal, which is awkward to use for extended periods, and as stated above, is temporarily lost on firmware updates.</p>
+<p>I feel that it would be best to keep the device in a state where if a networking mishap occurred, you could restore normal functionality with a simple device reboot.</p>
+
+<h2 class="relative group">Installing KOReader 
+    <div id="installing-koreader" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#installing-koreader" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>Install KOReader through <a
+  href="https://www.mobileread.com/forums/showthread.php?t=314220"
+    target="_blank"
+  >NiLuJe&rsquo;s One-Click Install package</a>
+, following the instructions for your respective Operating System. In addition to providing an excellent reading environment, KOReader functions as a terminal through which you can access your device&rsquo;s root filesystem and run Linux commands. The terminal functionality is a key part of enabling the VPN connection.</p>
+<details>
+  <summary><strong>How to Access Terminal in KOReader</strong></summary>
+  <ol>
+<li>
+<p>Tap the top bar to open the KOReader menu.</p>
+<figure>
+      <img class="my-0 rounded-md" src="/images/kobo-wireguard/1.png" alt="Tap the top bar to open the KOReader menu." />
+  </figure>
+</li>
+<li>
+<p>Select the Settings icon.</p>
+<figure>
+      <img class="my-0 rounded-md" src="/images/kobo-wireguard/2.png" alt="Select the Settings icon." />
+  </figure>
+</li>
+<li>
+<p>Go to Page 2 of the Settings section.</p>
+<figure>
+      <img class="my-0 rounded-md" src="/images/kobo-wireguard/3.png" alt="Go to Page 2 of the Settings section." />
+  </figure>
+</li>
+<li>
+<p>Select the More Tools button.</p>
+<figure>
+      <img class="my-0 rounded-md" src="/images/kobo-wireguard/4.png" alt="Select the More Tools button." />
+  </figure>
+</li>
+<li>
+<p>Select the Terminal Emulator button.</p>
+<figure>
+      <img class="my-0 rounded-md" src="/images/kobo-wireguard/5.png" alt="Select the Terminal Emulator button." />
+  </figure>
+</li>
+<li>
+<p>Select the Open terminal session (not running) option.</p>
+<figure>
+      <img class="my-0 rounded-md" src="/images/kobo-wireguard/6.png" alt="Select the Open terminal session (not running) option." />
+  </figure>
+</li>
+</ol>
+
+</details>
+
+
+<h2 class="relative group">Setting up SSH access 
+    <div id="setting-up-ssh-access" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#setting-up-ssh-access" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>KOReader&rsquo;s SSH package is unfortunately outdated and insecure, which causes it to have connectivity issues with modern computers.
+Luckily, <a
+  href="https://www.mobileread.com/forums/showthread.php?t=254214"
+    target="_blank"
+  >NiLuJe&rsquo;s <em>Yet another telnet/sshd &amp; misc tools package</em></a>
+ provided on the MobileRead forums has a properly functioning SSH service through the program Dropbear.</p>
+<p>Follow the instructions as described in the forum to install the package.</p>
+
+  
+
+
+
+<div
+  
+    class="flex px-4 py-3 rounded-md bg-primary-100 dark:bg-primary-900"
+  
+  >
+  <span
+    
+      class="text-primary-400 ltr:pr-3 rtl:pl-3 flex items-center"
+    
+    >
+    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"/></svg>
+
+  </span>
+
+
+  </span>
+
+  <span
+    
+      class="dark:text-neutral-300"
+    
+    ><strong>PLEASE DO NOT DO THIS STEP ON PUBLIC WIFI.</strong>
+By default, SSH access allows anyone to connect without the need for a password or key.</span>
+</div>
+
+<p>Securing SSH access to use public key auth only:</p>
+<ol>
+<li>
+<p>If you don&rsquo;t have an SSH key registered on your main device yet, generate one.
+This is done with the command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-keygen
+</span></span></code></pre></div></li>
+<li>
+<p>Next, open the public key file, which as of OpenSSH 9.x&rsquo;s defaults, should be <code>id_ed25519.pub</code> in a text editor, and copy its <strong>contents</strong> to the clipboard.</p>
+</li>
+<li>
+<p>SSH to your Kobo device. The IP address of the device can be found in the KOReader menu through the Settings/Gear Icon -&gt; Network -&gt; Network Info. The user is <code>root</code>, meaning that if the Kobo&rsquo;s IP address was <code>192.168.1.128</code>, the command to connect would be:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh root@192.168.1.128
+</span></span></code></pre></div><p>Make sure that the Kobo does NOT fall asleep while connected.</p>
+</li>
+<li>
+<p>Once connected to the Kobo through SSH, execute the command to create and edit the file containing the Kobo&rsquo;s authorised public keys.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vi /usr/local/niluje/usbnet/etc/authorized_keys
+</span></span></code></pre></div></li>
+<li>
+<p>Press <code>i</code> to enter <code>Insert Mode</code>, then press <code>Ctrl+Shift+v</code> to paste the public key into the file. Press <code>:wq</code> to save the file and quit.</p>
+</li>
+<li>
+<p>Execute the command to edit the options for the Kobo&rsquo;s SSH service:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vi /usr/local/stuff/bin/stuff-daemons.sh
+</span></span></code></pre></div><p>Uncomment Line 22.
+The line should be, <code>#SSHD_OPTS=&quot;${SSHD_OPTS} -s&quot;</code>, and the line above should have the comment, <code>NOTE: Uncomment if you want to limit dropbear to shared-key auth only</code>.
+You need to remove the <code>#</code>.</p>
+<p>Line 22 Before:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">## NOTE: Uncomment if you want to limit dropbear to shared-key auth only</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#SSHD_OPTS=&#34;${SSHD_OPTS} -s&#34;</span>
+</span></span></code></pre></div><p>Line 22 After:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">## NOTE: Uncomment if you want to limit dropbear to shared-key auth only</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SSHD_OPTS</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">SSHD_OPTS</span><span class="si">}</span><span class="s2"> -s&#34;</span>
+</span></span></code></pre></div></li>
+</ol>
+
+<h2 class="relative group">Compiling/Retrieving Wireguard Binaries 
+    <div id="compiling-retrieving-wireguard-binaries" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#compiling-retrieving-wireguard-binaries" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+<h3 class="relative group">Userspace Wireguard 
+    <div id="userspace-wireguard" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#userspace-wireguard" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>I have decided to use the userspace program <code>wireguard-go</code>, alongside <code>wireguard-tools</code> to manage the interfaces, rather than Wireguard&rsquo;s kernel modules.</p>
+<p>The Kobo <em>does</em> support Wireguard&rsquo;s kernel modules, as demonstrated by the terminal when running <code>wireguard-go</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌──────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│                                                      │
+</span></span><span class="line"><span class="cl">│   Running wireguard-go is not required because this  │
+</span></span><span class="line"><span class="cl">│   kernel has first class support for WireGuard. For  │
+</span></span><span class="line"><span class="cl">│   information on installing the kernel module,       │
+</span></span><span class="line"><span class="cl">│   please visit:                                      │
+</span></span><span class="line"><span class="cl">│         https://www.wireguard.com/install/           │
+</span></span><span class="line"><span class="cl">│                                                      │
+</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────────────┘
+</span></span></code></pre></div><p>However, as the <a
+  href="https://github.com/kobolabs/Kobo-Reader/blob/master/documentation/README.kernel"
+    target="_blank"
+  >documentation on the Kobo kernel</a>
+ states, if the kernel were to malfunction, then it would require physically opening up the device and physically accessing the storage to fix.</p>
+<p>Secondly, with newer devices such as the Kobo Clara Colour, the model has eMMC storage rather than an internal SD card, meaning that if the device were rendered unbootable, specialised equipment would be required to access the storage.</p>
+<p>Lastly, <code>wireguard-go</code> is the same version of Wireguard that the proprietary service Tailscale uses. <a
+  href="https://github.com/videah/kobo-tailscale"
+    target="_blank"
+  >A version of Tailscale for the Kobo</a>
+ exists and is proven to work.</p>
+
+<h3 class="relative group">Obtaining the <code>wireguard-go</code> binary 
+    <div id="obtaining-the-wireguard-go-binary" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#obtaining-the-wireguard-go-binary" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p><code>wireguard-go</code> is already available in the form of various pre-compiled binaries from <a
+  href="https://github.com/P3TERX/wireguard-go-builder"
+    target="_blank"
+  >this repository</a>
+.
+The Kobo has a 32-bit ARM processor, so the version to download, as of writing, is <a
+  href="https://github.com/P3TERX/wireguard-go-builder/releases/download/0.0.20230223/wireguard-go-linux-arm.tar.gz"
+    target="_blank"
+  >wireguard-go-linux-arm.tar.gz</a>
+.</p>
+
+<h3 class="relative group">Cross-compiling <code>wireguard-tools</code> 
+    <div id="cross-compiling-wireguard-tools" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#cross-compiling-wireguard-tools" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>The Kobo Clara uses a 32-bit ARM processor, meaning that the <code>wg</code> binary from <a
+  href="https://github.com/WireGuard/wireguard-tools"
+    target="_blank"
+  >wireguard-tools</a>
+ needs to be specifically cross-compiled for it.
+I have already cross-compiled the binary for my Kobo, which is downloadable <a
+  href="https://github.com/thefriendlyenigma/wireguard-tools/releases/tag/v1.0.20250423"
+    target="_blank"
+  >here</a>
+.</p>
+<p>If you would like to compile it yourself, then you will need to be running Linux. Download <a
+  href="https://github.com/koreader/koxtoolchain"
+    target="_blank"
+  >koxtoolchain</a>
+ scripts: both the scripts from the repository itself, and the prebuilt <code>kobov4</code> toolchain.</p>
+<ol>
+<li>Download the <a
+  href="https://github.com/koreader/koxtoolchain/releases/download/2025.01/kobov4.tar.gz"
+    target="_blank"
+  >kobov4 toolchain</a>
+ to your home directory
+<ul>
+<li>As of writing, the Kobo Clara runs firmware of version 4.x.</li>
+</ul>
+</li>
+<li>Download <a
+  href="https://github.com/koreader/koxtoolchain/archive/refs/tags/2025.01.tar.gz"
+    target="_blank"
+  >the koxtoolchain repository itself as an archive</a>
+ to your home directory</li>
+<li>Download <a
+  href="https://github.com/WireGuard/wireguard-tools"
+    target="_blank"
+  >the wireguard-tools repository</a>
+ to your home directory</li>
+<li>Extract all three downloaded archives. Your home directory should have three new folders:
+<ul>
+<li>koxtoolchain-2025.01</li>
+<li>x-tools</li>
+<li>wireguard-tools</li>
+</ul>
+</li>
+<li>Add <code>x-tools/arm-kobov4-linux-gnueabihf/bin</code> to your PATH. This can be done by adding this line to the bottom of the <code>.bashrc</code> file in the home directory:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/full/path/to/x-tools/arm-kobov4-linux-gnueabihf/bin/
+</span></span></code></pre></div>If the Terminal is open, close it and reopen it for the change to take effect.</li>
+<li>Install the <code>build-essential</code> package, which provides dependencies for compiling:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install build-essential
+</span></span></code></pre></div></li>
+<li>Open a Terminal in the home directory, then run the command to activate the compiling environment:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">source</span> koxtoolchain-2025.01/refs/x-compile.sh kobov4 env bare
+</span></span></code></pre></div></li>
+<li>Run this command to cross-compile the binary:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">make <span class="nv">CC</span><span class="o">=</span><span class="nv">$HOME</span>/x-tools/arm-kobov4-linux-gnueabihf/bin/arm-kobov4-linux-gnueabihf-gcc-14.2.0 -C wireguard-tools/src
+</span></span></code></pre></div></li>
+<li>The resultant binary will be located in the <code>wireguard-tools/src</code> folder, with the name <code>wg</code>. This is the file that needs to be copied to your Kobo.</li>
+</ol>
+
+<h3 class="relative group">Transferring Binaries to the Kobo 
+    <div id="transferring-binaries-to-the-kobo" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#transferring-binaries-to-the-kobo" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>So as not to interfere with the Kobo&rsquo;s default system files (which are likely to be overridden upon a system update), the <code>wg</code> binary and the <code>wireguard-go</code> binary are to be placed in the directory <code>/usr/local/bin</code>.</p>
+
+<h2 class="relative group">Editing Wireguard Conf File 
+    <div id="editing-wireguard-conf-file" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#editing-wireguard-conf-file" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>For this step, an example Wireguard configuration file from <a
+  href="https://www.pivpn.io/"
+    target="_blank"
+  >PiVPN</a>
+ was used, and I only used IPv4 addresses.</p>
+<p>The tool <code>wg-quick</code>, which is used in most &ldquo;full&rdquo; systems to create Wireguard connections, does not work here because the programs it depends on such as <code>setopt</code>, <code>systemd</code>, and <code>resolvconf</code> do not exist on the Kobo OS.</p>
+<p>Therefore, you need to manually change the Wireguard configuration file to allow the <code>wg</code> binary to process it:</p>
+<ol>
+<li>
+<p><strong>Record</strong> the two lines in the <code>[Interface]</code> section beginning with <code>Address =</code> and <code>DNS =</code> in  another document, then remove them from the configuration file.</p>
+</li>
+<li>
+<p>Add this line at the <strong>bottom</strong> of the document: <code>PersistentKeepAlive = 60</code> . Without this line, the IP address of the Kobo will needed to be pinged from the outside in order for the network connection to start.</p>
+</li>
+<li>
+<p>Depending on your personal preferences, the line <code>AllowedIPs = 0.0.0.0/0, ::0/0</code> to the range of IP addresses you would like to use the VPN for, as well as the IP address range of the VPN&rsquo;s internal network.</p>
+<p>For example, if you only want to use the VPN for IP addresses in the <code>192.168.1.x</code> range, and the IP address range of the VPN&rsquo;s internal network is <code>10.10.0.x</code> you would replace the line with: <code>AllowedIPs = 192.168.1.0/24, 10.10.0.0/24</code></p>
+</li>
+</ol>
+<p>Generated Wireguard conf file example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="k">[Interface]</span>
+</span></span><span class="line"><span class="cl"><span class="na">PrivateKey</span> <span class="o">=</span> <span class="s">PRIVATE_KEY</span>
+</span></span><span class="line"><span class="cl"><span class="na">Address</span> <span class="o">=</span> <span class="s">KOBO_IPV4_ADDRESS, KOBO_IPV6_ADDRESS</span>
+</span></span><span class="line"><span class="cl"><span class="na">DNS</span> <span class="o">=</span> <span class="s">WIREGUARD_DNS_ADDRESS</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Peer]</span>
+</span></span><span class="line"><span class="cl"><span class="na">PublicKey</span> <span class="o">=</span> <span class="s">PUBLIC_KEY</span>
+</span></span><span class="line"><span class="cl"><span class="na">PresharedKey</span> <span class="o">=</span> <span class="s">PRESHARED_KEY</span>
+</span></span><span class="line"><span class="cl"><span class="na">Endpoint</span> <span class="o">=</span> <span class="s">ENDPOINT_IPV4_ADDRESS</span>
+</span></span><span class="line"><span class="cl"><span class="na">AllowedIPs</span> <span class="o">=</span> <span class="s">0.0.0.0/0, ::0/0</span>
+</span></span></code></pre></div><p>The same file, edited for the Kobo:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="k">[Interface]</span>
+</span></span><span class="line"><span class="cl"><span class="na">PrivateKey</span> <span class="o">=</span> <span class="s">PRIVATE_KEY</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Peer]</span>
+</span></span><span class="line"><span class="cl"><span class="na">PublicKey</span> <span class="o">=</span> <span class="s">PUBLIC_KEY</span>
+</span></span><span class="line"><span class="cl"><span class="na">PresharedKey</span> <span class="o">=</span> <span class="s">PRESHARED_KEY</span>
+</span></span><span class="line"><span class="cl"><span class="na">Endpoint</span> <span class="o">=</span> <span class="s">ENDPOINT_IPV4_ADDRESS</span>
+</span></span><span class="line"><span class="cl"><span class="na">AllowedIPs</span> <span class="o">=</span> <span class="s">192.168.1.0/24, 10.10.0.0/24</span>
+</span></span><span class="line"><span class="cl"><span class="na">PersistentKeepAlive</span> <span class="o">=</span> <span class="s">60</span>
+</span></span></code></pre></div><p>Remember:</p>
+<ul>
+<li>This presumes you would like to <strong>split-tunnel</strong> network access, using the examples of <code>192.168.1.0/24</code> for the devices on the destination network and <code>10.10.0.0/24</code> for the Wireguard network itself.</li>
+<li>The <code>KOBO_IPV4_ADDRESS</code> and <code>WIREGUARD_DNS_ADDRESS</code> values must be recorded in a separate document</li>
+</ul>
+<p>Transfer the final conf file to an easy-to-access place on the Kobo device. In my case, I have saved the script inside <code>/mnt/onboard</code>, which is the same place where user files such as books are saved.</p>
+<p>This location was chosen because it won&rsquo;t be overridden upon firmware updates, and it is easily accessible over USB. I recommend the filename being a simple name, without spaces, as it will be required for the launching script.</p>
+
+<h2 class="relative group">Final Steps on Kobo 
+    <div id="final-steps-on-kobo" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#final-steps-on-kobo" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+<h3 class="relative group">Configuring KOReader to properly load the PATH 
+    <div id="configuring-koreader-to-properly-load-the-path" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#configuring-koreader-to-properly-load-the-path" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>First of all, KOReader&rsquo;s Terminal needs to be configured to acknowledge that the directory <code>/usr/local/bin</code> contains executable files.
+This can be done by SSHing into the Kobo, creating the file <code>/mnt/onboard/.adds/koreader/scripts/profile.user</code>, and then entering in contents as:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/bin
+</span></span></code></pre></div><p>Now whenever the <strong>KOReader terminal</strong> (NOT the SSH terminal) is started, it can run programs and scripts stored inside <code>/usr/local/bin</code>.</p>
+
+<h3 class="relative group">Configuring VPN DNS 
+    <div id="configuring-vpn-dns" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#configuring-vpn-dns" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Because <code>wg-quick</code> cannot be used and DNS isn&rsquo;t set by PiVPN automatically, you need to add the DNS servers in <code>/etc/resolv.conf</code> in order to ensure proper internet connectivity.
+<strong>This is where you paste in the addresses of the DNS servers from the original Wireguard configuration file.</strong></p>
+<p>For example, if you wanted to use the <code>1.1.1.1</code> DNS server and its fallback <code>1.0.0.1</code>, you would enter inside the file, two lines:</p>
+<ul>
+<li><code>nameserver 1.1.1.1</code></li>
+<li><code>nameserver 1.0.0.1</code></li>
+</ul>
+<p>The <code>/etc/resolv.conf</code> file would look like this at the end:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cfg" data-lang="cfg"><span class="line"><span class="cl"><span class="c1"># Generated by dhcpcd from wlan0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /etc/resolv.conf.head can replace this line</span>
+</span></span><span class="line"><span class="cl"><span class="na">domain local</span>
+</span></span><span class="line"><span class="cl"><span class="na">nameserver 1.1.1.1</span>
+</span></span><span class="line"><span class="cl"><span class="na">nameserver 1.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /etc/resolv.conf.tail can replace this line</span>
+</span></span></code></pre></div>
+<h3 class="relative group">Creating VPN-launching Script 
+    <div id="creating-vpn-launching-script" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#creating-vpn-launching-script" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Finally, you write the script that you will run to launch the VPN from the KOReader terminal.</p>
+<p>A template for split-tunnelling is as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>wireguard-go wg0
+</span></span><span class="line"><span class="cl">wg setconf wg0 <span class="nv">$PATH_TO_WIREGUARD_CONFIG</span>
+</span></span><span class="line"><span class="cl">ip link <span class="nb">set</span> wg0 up
+</span></span><span class="line"><span class="cl">ip addr add <span class="nv">$WIREGUARD_KOBO_IP</span> dev wg0
+</span></span><span class="line"><span class="cl">ip route add <span class="nv">$WIREGUARD_NETWORK_ADDRESS</span> dev wg0
+</span></span><span class="line"><span class="cl">ip route add <span class="nv">$DESTINATION_NETWORK_ADDRESS</span> dev wg0
+</span></span></code></pre></div><p>What this does is:</p>
+<ul>
+<li>Create a Wireguard interface</li>
+<li>Configure the Wireguard interface according to the provided conf file</li>
+<li>Activate the Wireguard interface</li>
+<li>Give the Wireguard interface the IP address that the Kobo has been assigned in the Wireguard network
+<ul>
+<li><strong>This is where you would paste the IPv4 address that you copied while editing the conf file.</strong></li>
+</ul>
+</li>
+<li>Tell the Kobo to use the Wireguard network interface when contacting IP addresses in the Wireguard network</li>
+<li>Tell the Kobo to use the Wireguard network interface when contacting IP addresses in the local destination network</li>
+</ul>
+<p>Using the variables:</p>
+<ul>
+<li><code>/mnt/onboard/wireguard-kobo.conf</code> is the location of the configuration file</li>
+<li>The Kobo&rsquo;s IP address in the Wireguard network is <code>10.10.0.2</code></li>
+<li>The Wireguard network address is <code>10.10.0.0/24</code></li>
+<li>The destination network, which has local devices that you would like the Kobo to access, has the address <code>192.168.1.0/24</code></li>
+</ul>
+<!--listend-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>wireguard-go wg0
+</span></span><span class="line"><span class="cl">wg setconf wg0 /mnt/onboard/wireguard-kobo.conf
+</span></span><span class="line"><span class="cl">ip link <span class="nb">set</span> wg0 up
+</span></span><span class="line"><span class="cl">ip addr add 10.10.0.2/24 dev wg0
+</span></span><span class="line"><span class="cl">ip route add 10.10.0.0/24 dev wg0
+</span></span><span class="line"><span class="cl">ip route add 192.168.1.0/24 dev wg0
+</span></span></code></pre></div><p>Save the script as <code>/usr/local/bin/vpn</code> and use <code>chmod +x</code> to make it executable.
+Now to activate the Wireguard VPN, you need to go to KOReader Terminal and type <code>vpn</code>, then press enter. This will remain active until the device powers down (the VPN still remains active in sleep mode).</p>
+<p>To deactivate the VPN, you can just restart the device, and it will have resumed regular network connectivity upon reboot.
+To reactivate the VPN upon reboot, you simply need to enter the KOReader Terminal and type <code>vpn</code>, then press enter.</p>
+<p>Congratulations! Now with the power of self-hosted book servers you can run, the options for your Kobo have dramatically expanded! 🥳</p>
+
+          
+          
+          
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.407e5b2727c1f241c95d53db24c776bea71bfc18e09511b815d669ad8caca6e9e18a53864ad364b1ccccfa2f2956768d33cfe193bfb64d3406f3b5ece354ba57.js"
+          integrity="sha512-QH5bJyfB8kHJXVPbJMd2vqcb/BjglRG4FdZprYyspunhilOGStNksczM&#43;i8pVnaNM8/hk7&#43;2TTQG87Xs41S6Vw=="
+          data-oid="views_posts/2025-04-23-kobo-wireguard.md"
+          data-oid-likes="likes_posts/2025-04-23-kobo-wireguard.md"></script>
+      
+
+    </section>
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/posts/2025-01-16-org-formatted-yank/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Org Mode - Pasting with Formatting</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-01-16T00:00:00&#43;00:00">16 January 2025</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/posts/2025-05-08-lxc/">
+              <span class="flex flex-col">
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Debian LXC and Docker in Termux</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-05-08T00:00:00&#43;00:00">8 May 2025</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a
+    href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2025
+          Matthew Lee
+      </p>
+    
+
+    
+    
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+      </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script> 
+  
+  <script
+    type="text/javascript"
+    src="/js/process.min.62060bb247f4de2b6dde45903668fefb68d792f365587605177b1227c0cf43588701edaca0cb40e2c8e2789bd5ce67c1d2a215b9fb258c3496a7cd25e7cb5fdf.js"
+    integrity="sha512-YgYLskf03itt3kWQNmj&#43;&#43;2jXkvNlWHYFF3sSJ8DPQ1iHAe2soMtA4sjieJvVzmfB0qIVufsljDSWp80l58tf3w=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-index-500"
+  data-url="/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

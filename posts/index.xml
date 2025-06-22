@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Simple Selfhosted Server Guides</title>
+    <link>/posts/</link>
+    <description>Recent content in Posts on Simple Selfhosted Server Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2025 Matthew Lee</copyright>
+    <lastBuildDate>Thu, 08 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Debian LXC and Docker in Termux</title>
+      <link>/posts/2025-05-08-lxc/</link>
+      <pubDate>Thu, 08 May 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2025-05-08-lxc/</guid>
+      <description>Purpose # This is to configure an Android device with a custom kernel to run a full LXC environment on external storage.</description>
+      
+    </item>
+    
+    <item>
+      <title>Connecting Kobo to Wireguard VPN</title>
+      <link>/posts/2025-04-23-kobo-wireguard/</link>
+      <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2025-04-23-kobo-wireguard/</guid>
+      <description>Summary # This is a guide to set up userspace Wireguard on the Kobo Clara Colour eReader, allowing you to connect the Kobo to a VPN that uses Wireguard configuration files.</description>
+      
+    </item>
+    
+    <item>
+      <title>Org Mode - Pasting with Formatting</title>
+      <link>/posts/2025-01-16-org-formatted-yank/</link>
+      <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/2025-01-16-org-formatted-yank/</guid>
+      <description>This is a script that lets you paste rich text from other applications such as web browsers or word processors into Emacs Org Mode with formatting included (such as italics, bold, and headings).</description>
+      
+    </item>
+    
+  </channel>
+</rss>
