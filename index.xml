@@ -55,7 +55,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/credits/</guid>
-      <description>This website has been written in Emacs Org Mode , exported to Hugo format through the ox-hugo package , using the Blowfish theme .</description>
+      <description>This website has been written in Emacs Org Mode , exported to Hugo format through the ox-hugo package .</description>
       
     </item>
     
