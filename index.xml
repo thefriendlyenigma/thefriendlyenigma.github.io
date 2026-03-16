@@ -6,18 +6,8 @@
     <description>Recent content on Simple Selfhosted Server Guides</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2026 Matthew Lee</copyright>
-    <lastBuildDate>Mon, 25 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Pipewire Setup for Single GPU Passthrough</title>
-      <link>/posts/2025-08-25-pipewire-gpupv/</link>
-      <pubDate>Mon, 25 Aug 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/2025-08-25-pipewire-gpupv/</guid>
-      <description></description>
-      
-    </item>
+    <copyright>© 2025 Matthew Lee</copyright>
+    <lastBuildDate>Thu, 08 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Debian LXC and Docker in Termux</title>
@@ -25,7 +15,7 @@
       <pubDate>Thu, 08 May 2025 00:00:00 +0000</pubDate>
       
       <guid>/posts/2025-05-08-lxc/</guid>
-      <description></description>
+      <description>Purpose # This is to configure an Android device with a custom kernel to run a full LXC environment on external storage.</description>
       
     </item>
     
@@ -35,7 +25,7 @@
       <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
       
       <guid>/posts/2025-04-23-kobo-wireguard/</guid>
-      <description></description>
+      <description>Summary # This is a guide to set up userspace Wireguard on the Kobo Clara Colour eReader, allowing you to connect the Kobo to a VPN that uses Wireguard configuration files.</description>
       
     </item>
     
@@ -45,7 +35,7 @@
       <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
       
       <guid>/posts/2025-01-16-org-formatted-yank/</guid>
-      <description></description>
+      <description>This is a script that lets you paste rich text from other applications such as web browsers or word processors into Emacs Org Mode with formatting included (such as italics, bold, and headings).</description>
       
     </item>
     
@@ -55,7 +45,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description></description>
+      <description>This website is the personal portfolio of myself, Matthew Lee, which I use as a way to collect and display my current achievements and skills!</description>
       
     </item>
     
@@ -65,7 +55,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/credits/</guid>
-      <description></description>
+      <description>This website has been written in Emacs Org Mode , exported to Hugo format through the ox-hugo package .</description>
       
     </item>
     
