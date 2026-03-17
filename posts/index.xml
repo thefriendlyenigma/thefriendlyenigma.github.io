@@ -15,7 +15,7 @@
       <pubDate>Mon, 25 Aug 2025 00:00:00 +0000</pubDate>
       
       <guid>/posts/2025-08-25-pipewire-gpupv/</guid>
-      <description></description>
+      <description>Summary # This is a guide that allows Virtual Machine audio input and output to run through the logged in user&amp;rsquo;s Pipewire sound service when using Single GPU Passthrough in Linux.</description>
       
     </item>
     
@@ -25,7 +25,7 @@
       <pubDate>Thu, 08 May 2025 00:00:00 +0000</pubDate>
       
       <guid>/posts/2025-05-08-lxc/</guid>
-      <description></description>
+      <description>Purpose # This is to configure an Android device with a custom kernel to run a full LXC environment on external storage.</description>
       
     </item>
     
@@ -35,7 +35,7 @@
       <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
       
       <guid>/posts/2025-04-23-kobo-wireguard/</guid>
-      <description></description>
+      <description>Summary # This is a guide to set up userspace Wireguard on the Kobo Clara Colour eReader, allowing you to connect the Kobo to a VPN that uses Wireguard configuration files.</description>
       
     </item>
     
@@ -45,7 +45,7 @@
       <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
       
       <guid>/posts/2025-01-16-org-formatted-yank/</guid>
-      <description></description>
+      <description>This is a script that lets you paste rich text from other applications such as web browsers or word processors into Emacs Org Mode with formatting included (such as italics, bold, and headings).</description>
       
     </item>
     
